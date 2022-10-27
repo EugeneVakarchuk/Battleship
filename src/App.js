@@ -3,7 +3,12 @@ import Battlefield from './comp/Battlefield';
 import Menu from './comp/Menu';
 import classes from './styles.module.css';
 
+
 function App() {
+
+
+
+
   return (
     <div className="App">
       <div className={classes.header}>
@@ -15,6 +20,7 @@ function App() {
         <Menu />
         <Battlefield />
       </section>
+
     </div>
   );
 }
