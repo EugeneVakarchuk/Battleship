@@ -5,3 +5,13 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
+.App {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+}
