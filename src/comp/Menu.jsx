@@ -1,6 +1,12 @@
 import React from 'react';
 import classes from '../styles.module.css'
-import Button from './Button';
+
+
+const Button = ({ children, ...props }) => {
+  return (
+    <button disabled={props.disabled} className={classes.btn}>{children}</button>
+  );
+};
 
 const Menu = () => {
   return (

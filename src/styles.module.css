@@ -41,3 +41,22 @@
   padding: 10px;
   margin-bottom: 10px;
 }
+
+.dock {
+  width: 32%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dockBlock {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.ship {
+  display: flex;
+  border: 3px solid #0400ff;
+  background: rgba(0, 55, 255, 0.45);
+  margin: -3px;
+}
