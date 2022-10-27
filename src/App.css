@@ -9,9 +9,16 @@ body {
 .App {
   width: 1000px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
 }
 
 body {
   width: 100vw;
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -10vh;
 }

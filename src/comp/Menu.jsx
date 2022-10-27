@@ -5,9 +5,9 @@ import Button from './Button/Button';
 const Menu = () => {
   return (
     <div className={classes.menu}>
-      <Button disabled={true}>Играть против слабока</Button>
-      <Button disabled={true}>Играть против среднего</Button>
-      <Button disabled={true}>Играть против сильного</Button>
+      <Button disabled={true}>Играть против легкого бота</Button>
+      <Button disabled={true}>Играть против среднего бота</Button>
+      <Button disabled={true}>Играть против сильного бота</Button>
       <Button disabled={true}>Играть против случайного игрока</Button>
       <Button disabled={true}>Вызвать на бой</Button>
       <Button>Расставить корабли вручную</Button>
