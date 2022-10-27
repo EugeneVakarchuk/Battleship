@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from '../styles.module.css';
 
-const Cell = (posY, posX) => {
+const Cell = ({ ...props }) => {
   return (
     <div className={classes.cell}>
     </div>
@@ -19,10 +19,7 @@ for (let y = 0; y < 10; y++) {
 
 
 
-console.log(matrix);
-
-
-const Battlefield = () => {
+const Battlefield = ({ ...props }) => {
 
   return (
     <div className={classes.battlefield}>
