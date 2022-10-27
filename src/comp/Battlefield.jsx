@@ -41,4 +41,4 @@ const Battlefield = ({ ...props }) => {
   );
 };
 
-export default Battlefield;
+export { Battlefield, Cell };
