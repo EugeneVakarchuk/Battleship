@@ -5,23 +5,27 @@ import classes from '../styles.module.css'
 const Dock = () => {
 
 
-  const [dockPos, setDockPos] = useState({ x: null, y: null });
+  const [dockPos, setDockPos] = useState({ x: null, y: null, xEnd: null, yEnd: null });
   const dockRef = useRef();
 
   useEffect(() => {
     const x = dockRef.current.getBoundingClientRect().x;
     const y = dockRef.current.getBoundingClientRect().y;
+    const xEnd = dockRef.current.getBoundingClientRect().x + dockRef.current.offsetWidth;
+    const yEnd = dockRef.current.getBoundingClientRect().y + dockRef.current.offsetHeight;
+
+
+    console.log(dockPos);
 
     return () => {
       setDockPos({
         x: x,
-        y: y
+        y: y,
+        xEnd: xEnd,
+        yEnd: yEnd
       })
     };
   }, []);
-
-
-  console.log(dockPos)
 
   return (
     <div ref={dockRef} className={classes.dock}>

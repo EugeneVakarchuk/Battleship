@@ -6,12 +6,15 @@ import useMousePosition from '../hooks/useMousePosition';
 
 const Ship = ({ size, dockPos, ...props }) => {
 
-  const [shipPos, setShipPos] = useState({ x: null, y: null });
+  const [shipPos, setShipPos] = useState({ x: null, y: null, xEnd: null, yEnd: null });
   const shipRef = useRef();
 
   useEffect(() => {
-    const x = dockPos.x + shipRef.current.getBoundingClientRect().x;
-    const y = dockPos.y + shipRef.current.getBoundingClientRect().y;
+    const absShipX = shipRef.current.getBoundingClientRect().x;
+    const absShipY = shipRef.current.getBoundingClientRect().y;
+
+    const x = dockPos.x - absShipX;
+    const y = dockPos.y - absShipY;
 
     return () => {
       setShipPos({
@@ -21,7 +24,8 @@ const Ship = ({ size, dockPos, ...props }) => {
     };
   }, []);
 
-  console.log(shipPos)
+
+
 
 
   //  const mousePos = useMousePosition();
