@@ -1,25 +1,45 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Ship from './Ship';
 import classes from '../styles.module.css'
 
 const Dock = () => {
+
+
+  const [dockPos, setDockPos] = useState({ x: null, y: null });
+  const dockRef = useRef();
+
+  useEffect(() => {
+    const x = dockRef.current.getBoundingClientRect().x;
+    const y = dockRef.current.getBoundingClientRect().y;
+
+    return () => {
+      setDockPos({
+        x: x,
+        y: y
+      })
+    };
+  }, []);
+
+
+  console.log(dockPos)
+
   return (
-    <div className={classes.dock}>
+    <div ref={dockRef} className={classes.dock}>
       <div className={classes.dockBlock}>
-        <Ship size={4} />
-        <Ship size={3} />
+        <Ship dockPos={dockPos} size={4} />
+        <Ship dockPos={dockPos} size={3} />
       </div>
       <div className={classes.dockBlock}>
-        <Ship size={3} />
-        <Ship size={2} />
-        <Ship size={2} />
+        <Ship dockPos={dockPos} size={3} />
+        <Ship dockPos={dockPos} size={2} />
+        <Ship dockPos={dockPos} size={2} />
       </div>
       <div className={classes.dockBlock}>
-        <Ship size={2} />
-        <Ship size={1} />
-        <Ship size={1} />
-        <Ship size={1} />
-        <Ship size={1} />
+        <Ship dockPos={dockPos} size={2} />
+        <Ship dockPos={dockPos} size={1} />
+        <Ship dockPos={dockPos} size={1} />
+        <Ship dockPos={dockPos} size={1} />
+        <Ship dockPos={dockPos} size={1} />
       </div>
     </div>
   );

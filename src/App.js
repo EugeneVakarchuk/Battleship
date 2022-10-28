@@ -4,7 +4,6 @@ import Dock from './comp/Dock';
 import Menu from './comp/Menu';
 import classes from './styles.module.css';
 
-
 function App() {
 
   return (
