@@ -14,9 +14,6 @@ const Dock = () => {
     const xEnd = dockRef.current.getBoundingClientRect().x + dockRef.current.offsetWidth;
     const yEnd = dockRef.current.getBoundingClientRect().y + dockRef.current.offsetHeight;
 
-
-    console.log(dockPos);
-
     return () => {
       setDockPos({
         x: x,

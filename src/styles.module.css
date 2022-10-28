@@ -33,7 +33,7 @@
   position: relative;
   width: 32px;
   height: 32px;
-  border: 1px solid rgba(6, 25, 247, 0.15);
+  outline: 1px solid rgba(6, 25, 247, 0.15);
 }
 
 .btn {
@@ -56,7 +56,6 @@
 
 .ship {
   display: flex;
-  border: 3px solid #0400ff;
   background: rgba(0, 55, 255, 0.45);
-  margin: -3px;
+  border: 1px solid rgba(6, 25, 247, 0.15);
 }
