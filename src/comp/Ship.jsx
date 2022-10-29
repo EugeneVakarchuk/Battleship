@@ -32,7 +32,6 @@ const Ship = ({ size, ...props }) => {
   // Create target state
 
   const mousePos = useMousePosition();
-
   const [target, setTarget] = useState(false);
 
   useEffect(() => {
@@ -50,6 +49,46 @@ const Ship = ({ size, ...props }) => {
     };
   });
 
+  // Create drag state
+  const [shipDrag, setShipDrag] = useState(false);
+
+  useEffect(() => {
+
+    const mouseDonw = shipRef.current.addEventListener('mousedown', () => {
+      if (
+        target === true
+      ) {
+        setShipDrag(true);
+      } else {
+        setShipDrag(false);
+      }
+    });
+
+    const mouseUp = shipRef.current.addEventListener('mouseup', () => {
+      if (
+        target === false
+      ) {
+        setShipDrag(false);
+      }
+    })
+  })
+
+  const [dragStyles, setDragStyles] = useState({});
+
+  const isDrag = () => {
+    if (shipDrag === true) {
+      setDragStyles(Object.assign({}, dragStyles, {
+        position: 'absolute',
+        top: mousePos.y - shipRef.current.offsetHeight / 2,
+        left: mousePos.x - shipRef.current.offsetWidth / 2
+      }))
+    }
+  }
+
+  useEffect(() => {
+    isDrag();
+  })
+
 
   // create matrix and render
 
@@ -60,13 +99,12 @@ const Ship = ({ size, ...props }) => {
 
 
   return (
-    <div pos={shipPos} ref={shipRef} className={classes.ship}>
+    <div pos={shipPos} ref={shipRef} style={dragStyles} className={classes.ship}>
       {
         matrix.map((cell, index) =>
           <Cell key={index} />
         )
       }
-      <p style={{ position: 'absolute' }}>{target.toString()}</p>
     </div>
   );
 
