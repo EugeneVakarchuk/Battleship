@@ -6,91 +6,93 @@ import useMousePosition from '../hooks/useMousePosition';
 
 const Ship = ({ size, ...props }) => {
 
-  // Create ship pos
-
-  const [shipPos, setShipPos] = useState({ x: null, y: null, xEnd: null, yEnd: null });
-  const shipRef = useRef();
-
-  useEffect(() => {
-
-    const x = shipRef.current.getBoundingClientRect().x;
-    const y = shipRef.current.getBoundingClientRect().y;
-    const xEnd = shipRef.current.getBoundingClientRect().x + shipRef.current.offsetWidth;;
-    const yEnd = shipRef.current.getBoundingClientRect().y + shipRef.current.offsetHeight;;
-
-    return () => {
-      setShipPos({
-        x: x,
-        y: y,
-        xEnd: xEnd,
-        yEnd: yEnd
-      })
-    };
-  }, []);
-
-
-  // Create target state
-
   const mousePos = useMousePosition();
+  const shipRef = useRef();
+  const [shipPos, setShipPos] = useState({
+    x: null,
+    y: null,
+    xEnd: null,
+    yEnd: null
+  });
+  const [startShipPos, setStartShipPos] = useState({
+    x: null,
+    y: null,
+  });
   const [target, setTarget] = useState(false);
+  const [drag, setDrag] = useState(false);
+  const [mouseDown, setMouseDown] = useState(false);
+  const [dragStyles, setDragStyles] = useState({});
+
 
   useEffect(() => {
-    return () => {
-      if (
+    setStartShipPos({
+      x: shipRef.current.getBoundingClientRect().x,
+      y: shipRef.current.getBoundingClientRect().y,
+    })
+  }, [])
+
+  useEffect(() => {
+    setShipPos({
+      x: shipRef.current.getBoundingClientRect().x,
+      y: shipRef.current.getBoundingClientRect().y,
+      xEnd: shipRef.current.getBoundingClientRect().x + shipRef.current.offsetWidth,
+      yEnd: shipRef.current.getBoundingClientRect().y + shipRef.current.offsetHeight,
+    })
+
+    if (
+      (
         mousePos.x > shipPos.x &&
         mousePos.y > shipPos.y &&
         mousePos.x < shipPos.xEnd &&
         mousePos.y < shipPos.yEnd
-      ) {
-        setTarget(true)
-      } else {
-        setTarget(false)
-      }
-    };
-  });
+      ) || drag === true
+    ) {
+      setTarget(true)
+    } else {
+      setTarget(false)
+    }
 
-  // Create drag state
-  const [shipDrag, setShipDrag] = useState(false);
-
-  useEffect(() => {
-
-    const mouseDonw = shipRef.current.addEventListener('mousedown', () => {
-      if (
-        target === true
-      ) {
-        setShipDrag(true);
-      } else {
-        setShipDrag(false);
-      }
+    shipRef.current.addEventListener('mousedown', () => {
+      setMouseDown(true)
     });
 
-    const mouseUp = shipRef.current.addEventListener('mouseup', () => {
-      if (
-        target === false
-      ) {
-        setShipDrag(false);
-      }
+    shipRef.current.addEventListener('mouseup', () => {
+      setMouseDown(false);
+      setTarget(false);
+      setShipPos({
+        x: startShipPos.x,
+        y: startShipPos.y,
+        xEnd: startShipPos.xEnd,
+        yEnd: startShipPos.yEnd
+      });
+      setDragStyles({})
     })
-  })
 
-  const [dragStyles, setDragStyles] = useState({});
+    target === true &&
+      mouseDown === true
+      ? setDrag(true) &&
+      setTarget(true)
+      : setDrag(false)
 
-  const isDrag = () => {
-    if (shipDrag === true) {
-      setDragStyles(Object.assign({}, dragStyles, {
+    drag === true
+      ? setDragStyles(Object.assign({}, dragStyles, {
         position: 'absolute',
         top: mousePos.y - shipRef.current.offsetHeight / 2,
         left: mousePos.x - shipRef.current.offsetWidth / 2
+      })) &&
+      setTarget(true) &&
+      setShipPos({
+        x: shipRef.current.getBoundingClientRect().x,
+        y: shipRef.current.getBoundingClientRect().y,
+        xEnd: shipRef.current.getBoundingClientRect().x + shipRef.current.offsetWidth,
+        yEnd: shipRef.current.getBoundingClientRect().y + shipRef.current.offsetHeight,
+      })
+      : setDragStyles(Object.assign({}, dragStyles, {
+        position: 'static'
       }))
-    }
-  }
-
-  useEffect(() => {
-    isDrag();
-  })
+  }, [mousePos, drag])
 
 
-  // create matrix and render
 
   const matrix = [];
   for (let i = 0; i < size; i++) {
@@ -99,7 +101,7 @@ const Ship = ({ size, ...props }) => {
 
 
   return (
-    <div pos={shipPos} ref={shipRef} style={dragStyles} className={classes.ship}>
+    <div style={dragStyles} className={classes.ship} ref={shipRef}>
       {
         matrix.map((cell, index) =>
           <Cell key={index} />

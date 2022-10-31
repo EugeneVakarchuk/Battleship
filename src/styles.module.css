@@ -58,4 +58,5 @@
   display: flex;
   background: rgba(0, 55, 255, 0.45);
   border: 1px solid rgba(6, 25, 247, 0.15);
+  position: relative;
 }
