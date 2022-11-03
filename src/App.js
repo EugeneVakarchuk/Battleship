@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import { Battlefield } from './comp/Battlefield';
 import Dock from './comp/Dock';

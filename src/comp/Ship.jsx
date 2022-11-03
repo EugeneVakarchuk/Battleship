@@ -59,6 +59,7 @@ const Ship = ({ size, ...props }) => {
     shipRef.current.addEventListener('mouseup', () => {
       setMouseDown(false);
       setTarget(false);
+      setDrag(false)
       setShipPos({
         x: startShipPos.x,
         y: startShipPos.y,
@@ -91,7 +92,6 @@ const Ship = ({ size, ...props }) => {
         position: 'static'
       }))
   }, [mousePos, drag])
-
 
 
   const matrix = [];

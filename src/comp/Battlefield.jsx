@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classes from '../styles.module.css';
 
 const Cell = ({ ...props }) => {
@@ -20,9 +20,26 @@ for (let y = 0; y < 10; y++) {
 
 const Battlefield = ({ ...props }) => {
 
+  const battlefieldRef = useRef();
+  const [battlefieldSize, setBattlefieldSize] = useState({
+    x: null,
+    y: null,
+    xEnd: null,
+    yEnd: null
+  })
+
+  useEffect(() => {
+    setBattlefieldSize({
+      x: battlefieldRef.current.getBoundingClientRect().x,
+      y: battlefieldRef.current.getBoundingClientRect().y,
+      xEnd: battlefieldRef.current.getBoundingClientRect().x + battlefieldRef.current.offsetWidth,
+      yEnd: battlefieldRef.current.getBoundingClientRect().y + battlefieldRef.current.offsetHeight,
+    })
+  }, [])
+
   return (
     <div className={classes.battlefield}>
-      <div>
+      <div ref={battlefieldRef} size={battlefieldSize}>
         {
           matrix.map((column, indexY) =>
             <div key={indexY} className={classes.column}>
