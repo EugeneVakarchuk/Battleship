@@ -37,6 +37,8 @@ const Battlefield = ({ ...props }) => {
     })
   }, [])
 
+
+
   return (
     <div className={classes.battlefield}>
       <div ref={battlefieldRef} size={battlefieldSize}>
